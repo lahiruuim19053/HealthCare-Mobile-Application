@@ -19,11 +19,11 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        edUsername= findViewById(R.id.editTextRegUsername);
-        edemail = findViewById(R.id.editTextRegEmail);
-        edPassword = findViewById(R.id.editTextRegPassword);
-        edConfirm = findViewById(R.id.editTextRegConfirmPassword);
-        btn = findViewById(R.id.buttonReg);
+        edUsername= findViewById(R.id.editTextAPPFullName);
+        edemail = findViewById(R.id.editTextAPPAddress);
+        edPassword = findViewById(R.id.editTextAppContactNo);
+        edConfirm = findViewById(R.id.editTextAPPFees);
+        btn = findViewById(R.id.buttonBookAppointment);
         tv = findViewById(R.id.textViewExistingUser);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = edemail.getText().toString();
                 String password = edPassword.getText().toString();
                 String confirm = edConfirm.getText().toString();
+                Database db = new Database(getApplicationContext(),"healthcare",null,1);
                 if(username.length()==0 || password.length()==0 || confirm.length()==0 || edemail.length()==0)
                 {
                     Toast.makeText(getApplicationContext(),"Fill all details...!",Toast.LENGTH_SHORT).show();
@@ -46,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else{
                     if(password.compareTo(confirm)==0){
                        if(isValid(password)){
+                           db.register(username,email,password);
                            Toast.makeText(getApplicationContext(),"Record inserted",Toast.LENGTH_SHORT).show();
                            startActivity(new Intent(RegisterActivity.this,loginActivity2.class));
                        }
